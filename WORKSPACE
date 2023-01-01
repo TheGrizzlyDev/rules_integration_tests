@@ -1,1 +1,1 @@
-workspace(name = "hello_world")
+workspace(name = "warm_testcontainers")
