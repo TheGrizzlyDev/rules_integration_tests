@@ -19,3 +19,20 @@ With that in mind, let's start by analysing what we want in terms of parallelisa
 This implies that we are not going to be able to use Daemon processes but we will be using caching and remote caching for everything as much as possible. Matter of fact, caching can be used to introduce a new technique to reduce startup time of an action: Caching container checkpoints.
 
 Docker supports something called checkpoints, a file based snapshot of the current state of the memory of a container. With this we can start a container and do all the initial heavy lifting and then capture a snapshot that will be usable as any other generated source in the build system. This also makes it usable by Remote Execution and because the same checkpoint + image combination will probably be used by multiple tests (imagine a checkpointed warm mysql container) it will also be cacheable.
+
+# Problems with the approach
+
+Because checkpoints can only be resumed and not used to start a fresh new instance of a container, you only get access to a subset of the features supported by `docker container start`. The most notable of these features are:
+- Volume bindings
+- Port forwarding
+- St(in|out|err) attaching
+
+## Port randomization
+
+Though it is impossible to expose a port after a container is started, it is possible to isolate at the networking layer, each instance of a checkpointed container always exposing the same port mapping, which thanks to network isolation won't collide. This is helpful because networks can be attached at runtime so if by default a container is started without a network (network driver = none), then checkpointed and later resumed we can still attach net network interfaces to it on which we can then our own abstraction to forward ports.
+
+## Volume bindings, file sharing and DB migrations
+
+Though volume bindings seem impossible it is possible to copy from/to a running container. Regardless this may cause the default strategies of containerised DBs rather unusable since those normally use volume binding to bind migrations scripts to a specific location. Nothing stops us though from exposing a migration API that is a bit more explicit, but it will make it harder to create custom DB containers.
+
+# APIs and protocol
