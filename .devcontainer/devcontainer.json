@@ -16,7 +16,8 @@
 			"extensions": [
 				"devondcarew.bazel-code",
 				"BazelBuild.vscode-bazel",
-				"vscjava.vscode-java-pack"
+				"vscjava.vscode-java-pack",
+				"peterj.proto"
 			]
 		}
 	},
