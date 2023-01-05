@@ -1,6 +1,6 @@
 # Idea
 
-This project serves the same purpose as (testcontainers)[https://www.testcontainers.org/] but tries to do so as efficiently as possible by levariging the build system's capabilities, in this case Bazel, while being language agnostic and as fast as possible.
+This project serves the same purpose as [testcontainers](https://www.testcontainers.org/) but tries to do so as efficiently as possible by levariging the build system's capabilities, in this case Bazel, while being language agnostic and as fast as possible.
 
 # How is this trying to be faster than testcontainers?
 
@@ -36,3 +36,9 @@ Though it is impossible to expose a port after a container is started, it is pos
 Though volume bindings seem impossible it is possible to copy from/to a running container. Regardless this may cause the default strategies of containerised DBs rather unusable since those normally use volume binding to bind migrations scripts to a specific location. Nothing stops us though from exposing a migration API that is a bit more explicit, but it will make it harder to create custom DB containers.
 
 # APIs and protocol
+
+The container-runner is a simple binary that starts a simple GRPC server. It can be started specifying a port and an address to bind to and killed like any other process. Everything else will work via grpc.
+
+# Automatically killing containers
+
+The container-runner process will always cleanup containers when not needed or when exiting as part of the cleanup. If the process were to exit abrouptly without being able to correctly clean after itself then the containers themselves will end up dying on their own after a certain timeout without receiving any message from the container-runner process.
