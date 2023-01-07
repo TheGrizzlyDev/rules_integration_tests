@@ -17,7 +17,8 @@
 				"devondcarew.bazel-code",
 				"BazelBuild.vscode-bazel",
 				"vscjava.vscode-java-pack",
-				"peterj.proto"
+				"peterj.proto",
+				"zxh404.vscode-proto3"
 			]
 		}
 	},

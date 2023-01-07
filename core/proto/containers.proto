@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = "dev.grizzly.proto.containers";
+
+message ContainerImage {
+    string canonical_url = 1;
+}
+
+message ContainerCheckpoint {
+    string local_path = 1;
+}
+
+message StartRequest {
+    ContainerImage container_image = 1;
+    ContainerCheckpoint container_checkpoint = 2;
+    repeated uint32 ports = 3;
+}
+
+message PortMapping {
+    uint32 container_port = 1;
+    uint32 exposed_port = 2;
+}
+
+message ContainerId {
+    string id = 1;
+}
+
+message StartResponse {
+    ContainerId id = 1;
+    repeated PortMapping exposed_ports = 2; 
+}
+
+message KillRequest {
+    ContainerId id = 1;
+}
+
+message KillResponse {}
+
+message InspectRequest {
+    ContainerId id = 1;
+}
+
+message InspectResponse {
+    string docker_container_id = 1;
+}
+
+service ContainerManager {
+    rpc Start(StartRequest) returns (StartResponse);
+    rpc Kill(KillRequest) returns (KillResponse);
+    rpc Inspect(InspectRequest) returns (InspectResponse);
+}
