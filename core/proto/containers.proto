@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "dev.grizzly.proto.containers";
+option go_package = "github.com/TheGrizzlyDev/rules_integration_tests/proto/containers";
 
 message ContainerImage {
     string canonical_url = 1;

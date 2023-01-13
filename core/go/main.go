@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
+	"log"
+	"net"
+
+	pb "github.com/TheGrizzlyDev/rules_integration_tests/proto/containers"
 )
 
-var (
-	port = flag.Int("port", 12345, "")
-)
+var port = flag.Int("port", 12345, "")
 
 func main() {
 	flag.Parse()
