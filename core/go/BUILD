@@ -11,7 +11,7 @@ go_binary(
 
 go_proto_library(
     name = "containers_grpc_lib",
-    importpath = "dev.grizzly.proto.containers",
+    importpath = "github.com/TheGrizzlyDev/rules_integration_tests/proto/containers",
     protos = [
         "//core/proto:containers",
     ],
