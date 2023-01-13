@@ -10,6 +10,14 @@ message ContainerCheckpoint {
     string local_path = 1;
 }
 
+enum ContainerStatus {
+    STARTING = 1;
+    RUNNING = 2;
+    CLOSING = 3;
+    DEAD = 4;
+    UNKNOWN = 5;
+}
+
 message StartRequest {
     ContainerImage container_image = 1;
     ContainerCheckpoint container_checkpoint = 2;
@@ -27,7 +35,7 @@ message ContainerId {
 
 message StartResponse {
     ContainerId id = 1;
-    repeated PortMapping exposed_ports = 2; 
+    repeated PortMapping exposed_ports = 2;
 }
 
 message KillRequest {
@@ -40,8 +48,20 @@ message InspectRequest {
     ContainerId id = 1;
 }
 
+message ContainerStatusChange {
+    ContainerStatus status = 1;
+    Timestamp at = 2;
+}
+
+message KeepAlive {
+    Timestamp at = 1;
+}
+
 message InspectResponse {
     string docker_container_id = 1;
+    repeated ContainerStatusChange status_log = 2;
+    repeated PortMapping exposed_ports = 3;
+    repeated KeepAlive keep_alive_log = 4;
 }
 
 service ContainerManager {

@@ -18,7 +18,8 @@
 				"BazelBuild.vscode-bazel",
 				"vscjava.vscode-java-pack",
 				"peterj.proto",
-				"zxh404.vscode-proto3"
+				"zxh404.vscode-proto3",
+				"golang.go"
 			]
 		}
 	},
