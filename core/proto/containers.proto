@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "dev.grizzly.proto.containers";
 
 message ContainerImage {
@@ -11,11 +13,11 @@ message ContainerCheckpoint {
 }
 
 enum ContainerStatus {
-    STARTING = 1;
-    RUNNING = 2;
-    CLOSING = 3;
-    DEAD = 4;
-    UNKNOWN = 5;
+    STARTING = 0;
+    RUNNING = 1;
+    CLOSING = 2;
+    DEAD = 3;
+    UNKNOWN = 4;
 }
 
 message StartRequest {
@@ -50,11 +52,11 @@ message InspectRequest {
 
 message ContainerStatusChange {
     ContainerStatus status = 1;
-    Timestamp at = 2;
+    google.protobuf.Timestamp at = 2;
 }
 
 message KeepAlive {
-    Timestamp at = 1;
+    google.protobuf.Timestamp at = 1;
 }
 
 message InspectResponse {
