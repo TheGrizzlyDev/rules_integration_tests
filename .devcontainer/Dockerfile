@@ -22,6 +22,12 @@ RUN curl -fSsL -o /usr/local/bin/bazelisk https://github.com/bazelbuild/bazelisk
     && chmod 0755 /usr/local/bin/bazelisk \
     && ln -s  /usr/local/bin/bazelisk  /usr/local/bin/bazel
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN curl -fSsl -o /tmp/go1.19.5.linux-amd64.tar.gz https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz \
+    && rm -rf /usr/local/go \
+    && tar -C /usr/local -xzf /tmp/go1.19.5.linux-amd64.tar.gz
+
+RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> "/home/${USERNAME}/.profile" \
+    && echo 'export PATH=$PATH:$(go env GOPATH)' >> "/home/${USERNAME}/.profile" \
+    && sudo -u "${USERNAME}" /usr/local/go/bin/go install -v golang.org/x/tools/gopls@latest \
+    && sudo -u "${USERNAME}" /usr/local/go/bin/go install -v github.com/go-delve/delve/cmd/dlv@latest \
+    && sudo -u "${USERNAME}" /usr/local/go/bin/go install -v honnef.co/go/tools/cmd/staticcheck@latest
