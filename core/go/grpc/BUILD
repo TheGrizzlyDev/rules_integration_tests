@@ -7,6 +7,7 @@ go_library(
     importpath = "github.com/TheGrizzlyDev/rules_integration_tests/core/go/grpc",
     deps = [
         ":containers_grpc_lib",
+        "@org_golang_google_grpc//:grpc",
     ],
     visibility = [
         "//core/go:__pkg__",
