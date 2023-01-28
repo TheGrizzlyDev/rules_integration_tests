@@ -7,6 +7,6 @@ proto_library(
         "//visibility:public",
     ],
     deps = [
-        "@com_google_protobuf//:timestamp_proto",
+        "@protobuf//:timestamp_proto",
     ],
 )
