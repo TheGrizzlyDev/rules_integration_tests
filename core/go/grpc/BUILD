@@ -20,7 +20,6 @@ go_proto_library(
         "//core/proto:containers",
     ],
     compilers = [
-        # "@rules_go//proto:go_proto",
         "@rules_go//proto:go_grpc",
     ]
 )

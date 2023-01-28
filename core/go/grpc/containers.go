@@ -5,5 +5,5 @@ import (
 )
 
 type ContainerManagerServer struct {
-	pb.InspectRequest
+	pb.UnimplementedContainerManagerServer
 }

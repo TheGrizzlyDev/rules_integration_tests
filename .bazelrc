@@ -1,1 +1,4 @@
 build --enable_bzlmod
+
+# Needed by rules_go editor support
+query --enable_bzlmod
