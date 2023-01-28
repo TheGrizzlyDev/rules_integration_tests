@@ -1,5 +1,5 @@
-load("@rules_go//go:def.bzl", "go_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 
 go_library(
     name = "grpc",
@@ -21,6 +21,6 @@ go_proto_library(
         "//core/proto:containers",
     ],
     compilers = [
-        "@rules_go//proto:go_grpc",
+        "@io_bazel_rules_go//proto:go_grpc",
     ]
 )
